@@ -1,0 +1,41 @@
+//Scripted Pipeline
+node ('agent1') {
+
+		stage('Git_Clone'){
+		    git branch: '#### Enter your branch ####', 
+            credentialsId: '#### Enter your credentials, if any ####', 
+            url: '#### Enter your repository URL ####'
+		}
+		
+
+        // Requires MATLAB plugin
+		stage('Pipeline Generation'){
+            
+            env.PATH = "C:\\Program Files\\MATLAB\\R2024a\\bin;${env.PATH}"
+            
+            /* Open the project and generate the pipeline using
+            appropriate options */
+
+            runMATLABCommand '''cp = openProject(pwd);
+            padv.pipeline.generatePipeline(...
+            padv.pipeline.JenkinsOptions(...
+            PipelineArchitecture = padv.pipeline.Architecture.SerialStagesGroupPerTask,...
+            GeneratorVersion = 1, ...
+            GeneratedJenkinsFileName = "simulink_pipeline",...
+            GeneratedPipelineDirectory = fullfile("derived","pipeline")));'''
+		}
+
+        
+        // pass necessary environment variables to generated pipeline
+		withEnv(["PATH=C:\\Program Files\\MATLAB\\R2024a\\bin;${env.PATH}"]) {    
+			
+            def rootDir = pwd()
+            
+            /* This file is generated automatically by 
+            padv.pipeline.generatePipeline with a default name 
+            of simulink_pipeline. Update this field if the 
+            name or location of the generated pipeline file is changed */
+
+			load "${rootDir}/derived/pipeline/simulink_pipeline"  
+		}
+}
