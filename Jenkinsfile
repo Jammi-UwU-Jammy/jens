@@ -1,5 +1,5 @@
 //Scripted Pipeline
-node ('agent1') {
+node ('arch-node') {
 
 		stage('Git_Clone'){
 		    git branch: 'dev', 
