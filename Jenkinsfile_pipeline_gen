@@ -2,16 +2,16 @@
 node ('agent1') {
 
 		stage('Git_Clone'){
-		    git branch: '#### Enter your branch ####', 
-            credentialsId: '#### Enter your credentials, if any ####', 
-            url: '#### Enter your repository URL ####'
+		    git branch: 'dev', 
+            # credentialsId: '#### Enter your credentials, if any ####', 
+            url: 'git@github.com:Jammi-UwU-Jammy/jens.git'
 		}
 		
 
         // Requires MATLAB plugin
 		stage('Pipeline Generation'){
             
-            env.PATH = "C:\\Program Files\\MATLAB\\R2024a\\bin;${env.PATH}"
+            env.PATH = "/home/omgisthisdevich/MATLAB/R2025b/bin/matlab"
             
             /* Open the project and generate the pipeline using
             appropriate options */
@@ -27,7 +27,7 @@ node ('agent1') {
 
         
         // pass necessary environment variables to generated pipeline
-		withEnv(["PATH=C:\\Program Files\\MATLAB\\R2024a\\bin;${env.PATH}"]) {    
+		withEnv(["PATH=/home/omgisthisdevich/MATLAB/R2025b/bin:${env.PATH}"]) {        // Linux
 			
             def rootDir = pwd()
             
