@@ -3,7 +3,7 @@ node ('agent1') {
 
 		stage('Git_Clone'){
 		    git branch: 'dev', 
-            # credentialsId: '#### Enter your credentials, if any ####', 
+            credentialsId: '', 
             url: 'git@github.com:Jammi-UwU-Jammy/jens.git'
 		}
 		
