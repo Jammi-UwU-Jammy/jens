@@ -3,7 +3,7 @@ node ('arch-node') {
 
 		stage('Git_Clone'){
 		    git branch: 'dev', 
-            credentialsId: '', 
+            credentialsId: '05bc8799-e1d1-4cef-a6ab-473b383ad339', 
             url: 'git@github.com:Jammi-UwU-Jammy/jens.git'
 		}
 		
